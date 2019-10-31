@@ -11,6 +11,19 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::resource('/projects', 'ProjectController')->middleware('auth');
+
+Route::resource('/projects/{project}/tasks', 'ProjectTasksController')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return Redirect('/');
 });
